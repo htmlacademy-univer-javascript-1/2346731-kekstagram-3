@@ -2,7 +2,12 @@ import {getRandomInt} from './util.js';
 
 const loremIpsum = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vel turpis molestie, tempor ligula et, sodales diam. Morbi suscipit facilisis ex, sit amet consequat ante. Donec ultricies urna arcu, eu egestas diam rhoncus ac. Phasellus at purus in libero pretium imperdiet. Phasellus tortor turpis, dapibus eu tortor vel, feugiat accumsan turpis. Aliquam erat volutpat. Cras at ex nisl. Morbi aliquet est dolor, sit amet ultricies mauris imperdiet sagittis. Suspendisse venenatis consectetur vulputate.';
 const loremIpsumList = loremIpsum.split('.');
-export function createRandomObject(id){
+
+export function createRandomPictureObject() {
+
+}
+
+export function createRandomPhoto(id){
   return {
     id: id,
     url: `photos/${id}.jpg`,
@@ -12,10 +17,10 @@ export function createRandomObject(id){
   };
 }
 
-export function createRandomObjects(quantity){
+export function createRandomPhotos(quantity){
   const randomObjects = [];
-  for (let i = 1; i <= quantity; i++) {
-    randomObjects[i-1] = createRandomObject(i);
+  for (let i = 0; i <= quantity; i++) {
+    randomObjects[i-1] = createRandomPhoto(i);
   }
   return randomObjects;
 }
