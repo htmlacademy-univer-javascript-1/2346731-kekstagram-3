@@ -1,4 +1,3 @@
-import {createRandomObjects} from './data';
+import {showRandomPosts} from './posts.js';
 
-// eslint-disable-next-line no-console
-console.log(createRandomObjects(25));
+showRandomPosts();
