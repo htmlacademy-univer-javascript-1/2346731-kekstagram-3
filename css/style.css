@@ -553,6 +553,10 @@ main {
   display: none;
 }
 
+.effect-level__slider input {
+  width: 300px;
+}
+
 
 /**
  * Блок с эффектами, которые можно применить к изображению
@@ -697,6 +701,17 @@ main {
   border-radius: 5px;
 }
 
+.form__item--invalid input{
+  border-color: #e90000;
+}
+
+.form__item--valid input{
+  border-color: #3bba19;
+}
+
+.form__error{
+  color: #e90000;
+}
 
 /**
  * Кнопка для отправки изображения
