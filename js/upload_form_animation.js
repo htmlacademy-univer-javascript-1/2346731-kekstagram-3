@@ -32,6 +32,7 @@ function showUploadWindow(){
 
 function closeUploadWindow(){
   uploadForm.classList.add('hidden');
+  document.querySelector('body').classList.remove('modal-open');
   document.removeEventListener('keydown', escapeKeyListener);
   fileInput.value='';
 }
