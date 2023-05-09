@@ -4,11 +4,13 @@ const imagePreview = document.querySelector('#image-preview');
 const fileInput = document.querySelector('#upload-file');
 const closeButton = document.querySelector('#upload-cancel');
 
-loadButton.addEventListener('click', () => {
-  showUploadWindow();
-});
+export function animateOpeningAndClosingOfUploadForm(){
+  loadButton.addEventListener('click', () => {
+    showUploadWindow();
+  });
 
-closeButton.addEventListener('click', closeUploadWindow);
+  closeButton.addEventListener('click', closeUploadWindow);
+}
 
 function escapeKeyListener(evt){
   if (evt.key === 'Escape') {
