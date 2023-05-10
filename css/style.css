@@ -522,6 +522,10 @@ main {
   max-height: 600px;
 }
 
+#image-preview {
+  transform: scale(1.0);
+}
+
 
 /**
  * Шкала регулирования глубины фильтра
