@@ -1,5 +1,11 @@
-import {showRandomPosts} from './posts.js';
+import {showRandomPosts} from './randomPostsFactory.js';
+import {
+  animateImageScalingAndFiltersApplying,
+  animateOpeningAndClosingOfUploadForm
+} from './upload_form/upload_form_animation.js';
+import {activatePristineValidationOfUploadForm} from './upload_form/upload_form_validation.js';
 
 showRandomPosts();
-
-//Задание 7 часть 2
+animateOpeningAndClosingOfUploadForm();
+activatePristineValidationOfUploadForm();
+animateImageScalingAndFiltersApplying();

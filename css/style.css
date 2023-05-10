@@ -522,6 +522,10 @@ main {
   max-height: 600px;
 }
 
+#image-preview {
+  transform: scale(1.0);
+}
+
 
 /**
  * Шкала регулирования глубины фильтра
@@ -708,6 +712,18 @@ main {
   color: #000000;
 
   border-radius: 5px;
+}
+
+.form__item--invalid input{
+  border-color: #e90000;
+}
+
+.form__item--valid input{
+  border-color: #3bba19;
+}
+
+.form__error{
+  color: #e90000;
 }
 
 
