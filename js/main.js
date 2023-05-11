@@ -1,4 +1,4 @@
-import {showRandomPosts} from './randomPostsFactory.js';
+import {showRandomPosts} from './utils/randomPostsFactory.js';
 import {
   animateImageScalingAndFiltersApplying,
   animateOpeningAndClosingOfUploadForm
