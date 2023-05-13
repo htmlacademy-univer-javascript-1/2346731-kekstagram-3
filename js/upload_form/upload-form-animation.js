@@ -1,40 +1,59 @@
+/* eslint no-use-before-define: 0 */
 /*--------------Opening and closing the form--------------*/
-const loadButton = document.querySelector('.img-upload__input');
-const uploadForm = document.querySelector('.img-upload__overlay');
+const loadButtonElement = document.querySelector('.img-upload__input');
+const uploadFormElement = document.querySelector('.img-upload__overlay');
 const imagePreviewDivElement = document.querySelector('#image-preview');
-const fileInput = document.querySelector('#upload-file');
-const closeButton = document.querySelector('#upload-cancel');
+const fileInputElement = document.querySelector('#upload-file');
+const closeButtonElement = document.querySelector('#upload-cancel');
+const commentInputElement = document.querySelector('.text__description');
+const hashtagInputElement = document.querySelector('.text__hashtags');
 
 export function animateOpeningAndClosingOfUploadForm(){
-  loadButton.addEventListener('click', showUploadWindow);
-  closeButton.addEventListener('click', closeUploadWindow);
+  loadButtonElement.addEventListener('click', loadButtonHandler);
 }
 
-function escapeKeyListener(evt){
+function escapeKeydownHandler(evt){
   if (evt.key === 'Escape') {
     evt.preventDefault();
-    closeUploadWindow();
+    uploadWindowCloseHandler();
   }
 }
 
-function showUploadWindow(){
-  fileInput.addEventListener('change', () => {
-    const [file] = fileInput.files;
-    if (file) {
-      imagePreviewDivElement.src = URL.createObjectURL(file);
-    }
-    uploadForm.classList.remove('hidden');
-    document.querySelector('body').classList.add('modal-open');
-  });
-  document.addEventListener('keydown', escapeKeyListener);
+function loadButtonHandler(){
+  fileInputElement.addEventListener('change', fileInputHandler);
+  document.addEventListener('keydown', escapeKeydownHandler);
+  closeButtonElement.addEventListener('click', uploadWindowCloseHandler);
+}
+
+function fileInputHandler() {
+  const [file] = fileInputElement.files;
+  if (file) {
+    imagePreviewDivElement.src = URL.createObjectURL(file);
+  }
+  uploadFormElement.classList.remove('hidden');
+  document.querySelector('body').classList.add('modal-open');
 }
 
 
-function closeUploadWindow(){
-  document.removeEventListener('keydown', escapeKeyListener);
-  fileInput.value='';
+export function uploadWindowCloseHandler(){
+  document.removeEventListener('keydown', escapeKeydownHandler);
+  closeButtonElement.removeEventListener('click', uploadWindowCloseHandler);
+  fileInputElement.value='';
+  scaleValue = 100;
+  setImageScale(scaleValue);
   resetFilters();
-  uploadForm.classList.add('hidden');
+  hashtagInputElement.value = '';
+  commentInputElement.value = '';
+  fileInputElement.value = '';
+  uploadFormElement.classList.add('hidden');
+  document.querySelector('body').classList.remove('modal-open');
+}
+
+export function closeUploadWindowWithoutErasing(){
+  document.removeEventListener('keydown', escapeKeydownHandler);
+  closeButtonElement.removeEventListener('click', uploadWindowCloseHandler);
+  fileInputElement.value='';
+  uploadFormElement.classList.add('hidden');
   document.querySelector('body').classList.remove('modal-open');
 }
 
@@ -56,32 +75,32 @@ filterToSliderSettingsMap.set('sepia', [0, 1, 0.1, 'sepia']);
 filterToSliderSettingsMap.set('marvin', [0, 100, 1, 'invert']);
 filterToSliderSettingsMap.set('phobos', [0, 3, 0.1, 'blur']);
 filterToSliderSettingsMap.set('heat', [1, 3, 0.1, 'brightness']);
+
 export function animateImageScalingAndFiltersApplying() {
-  increaseScaleButtonElement.addEventListener('click', increaseImageScale);
-  decreaseScaleButtonElement.addEventListener('click', decreaseImageScale);
-  filtersRadiosListElement.addEventListener('click', applyFilter);
+  increaseScaleButtonElement.addEventListener('click', increaseImageScaleButtonHandler);
+  decreaseScaleButtonElement.addEventListener('click', decreaseImageScaleButtonHandler);
+  filtersRadiosListElement.addEventListener('click', applyFilterHandler);
   sliderElement.noUiSlider.on('update', adjustFilterTransparency);
 }
-function increaseImageScale(){
-  scaleValue += 25;
-  if (scaleValue >= 100){
-    scaleValue=100;
-    imagePreviewDivElement.style.transform = 'scale(1)';
-  } else {
-    imagePreviewDivElement.style.transform = `scale(0.${scaleValue})`;
+function increaseImageScaleButtonHandler(){
+  if (scaleValue <= 75){
+    scaleValue += 25;
+    setImageScale(scaleValue);
   }
-  scaleValueElement.value = `${scaleValue}%`;
-
 }
-function decreaseImageScale(){
+function decreaseImageScaleButtonHandler(){
   if (scaleValue >= 50){
     scaleValue -= 25;
+    setImageScale(scaleValue);
   }
-  scaleValueElement.value = `${scaleValue}%`;
-  imagePreviewDivElement.style.transform = `scale(0.${scaleValue})`;
-
 }
-function applyFilter(evt) {
+
+function setImageScale(val){
+  scaleValueElement.value = `${val}%`;
+  imagePreviewDivElement.style.transform = `scale(${val/100.0})`;
+}
+
+function applyFilterHandler(evt) {
   if(evt.target.type === 'radio'){
     currentFilter = evt.target.value;
     changeNoUiSlider(evt.target.value);
@@ -142,3 +161,4 @@ function adjustFilterTransparency() {
 function resetFilters() {
   filtersRadiosListElement.querySelector('#effect-none').click();
 }
+

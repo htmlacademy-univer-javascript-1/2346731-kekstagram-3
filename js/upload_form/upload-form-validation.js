@@ -12,16 +12,14 @@ const pristine = new Pristine(form, {
 },false);
 const hashtagRegexp = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
 
-export function activatePristineValidationOfUploadForm() {
+export function setupPristineValidationOfUploadForm() {
   pristine.addValidator(scaleValueElement, validateScaleValueElement, 'Неправильно выбран масштаб изображения. Допустимые значения: 25%, 50%, 75%, 100%');
   pristine.addValidator(commentInput, validateComment, 'Количество символов в комментарии должно быть от 20 до 140');
   pristine.addValidator(hashtagInput, validateHashtag, 'Хештег должен содержать от 1 до 19 символов и начинаться с решётки');
-  form.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-    if(pristine.validate()){
-      form.submit();
-    }
-  });
+}
+
+export function validateUploadForm(){
+  return pristine.validate();
 }
 
 function validateScaleValueElement() {
@@ -30,7 +28,7 @@ function validateScaleValueElement() {
 }
 
 function validateComment (value) {
-  return value.length > 20 && value.length < 140;
+  return value.length >= 20 && value.length <= 140;
 
 }
 

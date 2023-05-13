@@ -1427,7 +1427,7 @@ main {
 
 /*=======================Анимации==========================*/
 
-@keyframes myAnim {
+@keyframes dropdown {
   0% {
     animation-timing-function: ease-in;
     opacity: 1;
