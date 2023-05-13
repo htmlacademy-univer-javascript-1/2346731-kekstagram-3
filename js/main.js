@@ -1,11 +1,11 @@
-import {showRandomPosts} from './randomPostsFactory.js';
+import {showRandomPosts} from './utils/random-posts-factory.js';
 import {
   animateImageScalingAndFiltersApplying,
   animateOpeningAndClosingOfUploadForm
-} from './upload_form/upload_form_animation.js';
-import {activatePristineValidationOfUploadForm} from './upload_form/upload_form_validation.js';
+} from './upload_form/upload-form-animation.js';
+import {setupNewImageSending} from './upload_form/upload-form-sending.js';
 
 showRandomPosts();
 animateOpeningAndClosingOfUploadForm();
-activatePristineValidationOfUploadForm();
 animateImageScalingAndFiltersApplying();
+setupNewImageSending();
